@@ -50,17 +50,17 @@ public class BallMovement : MonoBehaviour
             }
         }
 
-        if(_gameState == GameStateManager.GameState.playing)
+        if(GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.playing)
         {
            
         }
 
-        if (_gameState == GameStateManager.GameState.win)
+        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.win)
         {
             
         }
 
-        if (_gameState == GameStateManager.GameState.lose)
+        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.lose)
         {
             
         }
