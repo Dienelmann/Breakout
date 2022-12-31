@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 
-
+using UnityEngine.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +21,8 @@ public class BallMovement : MonoBehaviour
     public BrickSpawner spawner;
     public delegate void BallCollison(Collision2D BallPosition);
     public event BallCollison OnBallCollison;
-    
+    public int Score = 0;
+    public Text Scorepoints;
 
     
 
@@ -38,39 +39,22 @@ public class BallMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.ready)// zu switch machen & alles gleich machen
+        if (myRigidbody2D.velocity == Vector2.zero)
         {
-            if (myRigidbody2D.velocity == Vector2.zero)
+            spacekeyState = Input.GetKeyDown(KeyCode.Space);
+            if (spacekeyState == true)
             {
-                spacekeyState = Input.GetKeyDown(KeyCode.Space);
-                if (spacekeyState == true)
-                {
-                    LaunchBall();
-                } 
-            }
+                LaunchBall();
+            } 
         }
-
-        if(GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.playing)
         {
-           
-        }
-
-        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.win)
-        {
-            
-        }
-
-        if (GameStateManager.Instance.GetCurrentState() == GameStateManager.GameState.lose)
-        {
-            
+           Scorepoints.text = Score.ToString();
         }
     }
 
-    
 
     
 
-    
 
     private void ResetBall()
     {
@@ -88,6 +72,9 @@ public class BallMovement : MonoBehaviour
         if (col.gameObject.CompareTag("Brick"))
         {
             myRigidbody2D.velocity *= speedMultiplier;
+            
+            Score += 1;
+
         }
         
         
