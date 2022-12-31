@@ -12,19 +12,20 @@ using Random = UnityEngine.Random;
 public class BallMovement : MonoBehaviour
 {
     private Rigidbody2D myRigidbody2D;
-    public float speedMultiplier = 1.05f;
+    public float speedMultiplier = 1.02f;
     public float speed = 10f;
     private int startDir;
     private bool spacekeyState;
     private bool ballState;
     private Rigidbody2D rb;
-    public BrickSpawner spawner;
+    
     public delegate void BallCollison(Collision2D BallPosition);
     public event BallCollison OnBallCollison;
     public int Score = 0;
     public Text Scorepoints;
+    public BrickSpawner Spawner;
 
-    
+
 
     private void Awake()
     {
@@ -50,6 +51,10 @@ public class BallMovement : MonoBehaviour
         {
            Scorepoints.text = Score.ToString();
         }
+        if (Spawner.Count == 0)
+        {
+            Spawner.RefillSpawn();
+        }
     }
 
 
@@ -62,7 +67,7 @@ public class BallMovement : MonoBehaviour
         myRigidbody2D.position = Vector2.zero;
         
     }
-    private void OnCollisionEnter2D(Collision2D col)
+    public void OnCollisionEnter2D(Collision2D col)
     {
        
         if (col.gameObject.CompareTag("Player"))
@@ -74,6 +79,7 @@ public class BallMovement : MonoBehaviour
             myRigidbody2D.velocity *= speedMultiplier;
             
             Score += 1;
+            Spawner.Count -= 1;
 
         }
         
@@ -81,7 +87,7 @@ public class BallMovement : MonoBehaviour
         if (col.gameObject.CompareTag("Finish"))
         {
             ResetBall();
-            spawner.RefillSpawn();
+            
         }
 
         OnBallCollison.Invoke(col);

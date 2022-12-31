@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class BrickSpawner : MonoBehaviour
     public float cDistanc = 0.5f;
     public float spacing;
     private List<GameObject> bricks = new List<GameObject>();
+    public int Count;
 
     private void Start()
     {
@@ -18,6 +20,10 @@ public class BrickSpawner : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        Count = ybrick * xbrick;
+    }
 
     /*public void Spawn()
     {
@@ -60,7 +66,7 @@ public class BrickSpawner : MonoBehaviour
     public void RemoveBrick(Brick brick)
     {
         bricks.Remove(brick.gameObject);
-        if (bricks.Count == 0)
+        if (Count == 0)
         {
             RefillSpawn();
         }

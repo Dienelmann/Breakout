@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class Physics : MonoBehaviour
 {
    
-        public float speed = 5f;
+        public float speed = 15f;
     
         private Rigidbody2D rb;
         private float horizontal;
